@@ -25,10 +25,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Large generated ML artifacts
-*.joblib
-*.pkl
-*.pickle
+
 
 # Optional local datasets
 # Uncomment this if you do not want to push the training dataset:
