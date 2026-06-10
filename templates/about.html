@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomVision AI | About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="ambient-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <nav class="glass-nav premium-nav fade-in">
+            <a href="{{ url_for('home') }}" class="nav-logo">
+                <span class="nav-logo-mark">RV</span>
+                <span class="nav-logo-copy">
+                    <strong>RoomVision AI</strong>
+                    <small>Realtime room understanding for interior scenes</small>
+                </span>
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('prediction') }}">Prediction</a>
+                <a href="{{ url_for('about') }}" class="active">About</a>
+            </div>
+        </nav>
+
+        <header class="glass-header hero-shell fade-in">
+            <div class="hero-copy">
+                <p class="chip">About The Project</p>
+                <h1 class="gradient-text">Inside RoomVision AI</h1>
+                <p class="subtitle">This project combines dataset organization, feature engineering, model training, and a Flask web interface to classify indoor room scenes.</p>
+                <div class="stats-pills">
+                    <span class="pill">{{ stats.total_images }} Images</span>
+                    <span class="pill">{{ stats.classes }} Classes</span>
+                    <span class="pill">Web + ML Pipeline</span>
+                    <span class="pill">{{ stats.model_type }} Model</span>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <p class="panel-label">Core stack</p>
+                <div class="hero-insight-list compact">
+                    <div class="hero-insight">
+                        <strong>Frontend</strong>
+                        <span>HTML templates, CSS glass UI, instant fetch-based prediction flow.</span>
+                    </div>
+                    <div class="hero-insight">
+                        <strong>Backend</strong>
+                        <span>Flask routes for pages, uploads, and prediction API responses.</span>
+                    </div>
+                    <div class="hero-insight">
+                        <strong>ML</strong>
+                        <span>Preprocessing, extracted features, trained classifier, confidence outputs.</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="glass-card fade-in-up">
+            <div class="section-heading">
+                <div>
+                    <h2>Project Flow</h2>
+                    <p class="text-muted">From foldered dataset images to live browser predictions.</p>
+                </div>
+                <a href="{{ url_for('prediction') }}" class="text-link">Open Prediction</a>
+            </div>
+            <div class="about-grid">
+                <article class="feature-card">
+                    <h3>1. Data Collection</h3>
+                    <p class="text-muted">Images are organized into class folders: Bathroom, Bedroom, Dinning, Kitchen, and Livingroom.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>2. Preprocessing</h3>
+                    <p class="text-muted">Each image is resized to a fixed size, converted to grayscale, and normalized for stable feature extraction.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>3. Feature Extraction</h3>
+                    <p class="text-muted">HOG and color descriptors capture structure, edges, and color cues before feature selection reduces the final vector.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>4. Model Training</h3>
+                    <p class="text-muted">The pipeline splits data, balances classes, then trains either a tuned SVM or a soft-voting ensemble.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>5. Evaluation</h3>
+                    <p class="text-muted">Accuracy, precision, recall, F1-score, and confusion matrix are used to measure class-wise performance.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>6. Inference API</h3>
+                    <p class="text-muted">Uploaded images are processed through the saved model and returned with confidence and top alternatives.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card fade-in-up delay-1">
+            <h2>Checklist Coverage</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>EDA</h3>
+                    <p class="text-muted">Class counts, imbalance ratio, and underrepresented classes are computed from the dataset and shown in the app.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Feature Engineering and Selection</h3>
+                    <p class="text-muted">HOG and color features are engineered, then SelectKBest keeps the most informative subset for training.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Ensemble Methods</h3>
+                    <p class="text-muted">A soft-voting ensemble combines SVM, Random Forest, and Extra Trees for stronger final predictions.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Monitoring</h3>
+                    <p class="text-muted">Each prediction is logged with timestamp, label, confidence, and top matches for lightweight monitoring.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card fade-in-up delay-1">
+            <h2>What Makes The Demo Useful</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Fast Testing</h3>
+                    <p class="text-muted">The prediction page gives feedback quickly, which is ideal for demos and mini-project presentations.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Explainable Flow</h3>
+                    <p class="text-muted">The site clearly shows where the data comes from and how the model reaches its output.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Easy Iteration</h3>
+                    <p class="text-muted">As the dataset grows, the model can be retrained and the UI still stays simple for users.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card dataset-panel fade-in-up delay-1">
+            <h2>Current Class Distribution</h2>
+            <div class="dataset-grid">
+                {% for class_name, count in dataset_overview.class_counts.items() %}
+                <div class="data-card">
+                    <span class="data-name">{{ class_name }}</span>
+                    <strong class="data-count">{{ count }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="glass-card fade-in-up delay-1">
+            <h2>Live Project Metrics</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Imbalance Ratio</h3>
+                    <p class="text-muted">{{ eda_summary.imbalance_ratio if eda_summary.imbalance_ratio else 'N/A' }}</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Predictions Logged</h3>
+                    <p class="text-muted">{{ monitoring_summary.total_predictions }}</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Average Confidence</h3>
+                    <p class="text-muted">{{ monitoring_summary.average_confidence if monitoring_summary.average_confidence is not none else 'N/A' }}%</p>
+                </article>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

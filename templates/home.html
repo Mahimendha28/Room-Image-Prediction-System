@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomVision AI | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="ambient-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <nav class="glass-nav premium-nav fade-in">
+            <a href="{{ url_for('home') }}" class="nav-logo">
+                <span class="nav-logo-mark">RV</span>
+                <span class="nav-logo-copy">
+                    <strong>RoomVision AI</strong>
+                    <small>Realtime room understanding for interior scenes</small>
+                </span>
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}" class="active">Home</a>
+                <a href="{{ url_for('prediction') }}">Prediction</a>
+                <a href="{{ url_for('about') }}">About</a>
+            </div>
+        </nav>
+
+        <header class="glass-header hero-shell fade-in">
+            <div class="hero-copy">
+                <p class="chip">Computer Vision Project</p>
+                <h1 class="gradient-text">Understand Rooms From a Single Image</h1>
+                <p class="subtitle">RoomVision classifies indoor scenes into Bathroom, Bedroom, Dinning, Kitchen, and Livingroom with a simple Flask interface built for fast demo predictions.</p>
+                <div class="hero-actions">
+                    <a href="{{ url_for('prediction') }}" class="btn-primary btn-inline">Start Predicting</a>
+                    <a href="{{ url_for('about') }}" class="btn-secondary">Explore Pipeline</a>
+                </div>
+                <div class="stats-pills">
+                    <span class="pill">{{ stats.total_images }} Images</span>
+                    <span class="pill">{{ stats.classes }} Classes</span>
+                    <span class="pill">{{ stats.image_size }} Input</span>
+                    <span class="pill">{{ stats.model_type }} Model</span>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <p class="panel-label">Why this page feels stronger now</p>
+                <div class="hero-insight-list">
+                    <div class="hero-insight">
+                        <strong>Cleaner first impression</strong>
+                        <span>Home now explains the product before the user reaches prediction.</span>
+                    </div>
+                    <div class="hero-insight">
+                        <strong>Better navigation flow</strong>
+                        <span>Users can move from Home to Prediction to About without losing context.</span>
+                    </div>
+                    <div class="hero-insight">
+                        <strong>Project story at a glance</strong>
+                        <span>Dataset stats and workflow are visible right on the landing page.</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="glass-card fade-in-up">
+            <h2>What You Can Do</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Upload & Predict</h3>
+                    <p class="text-muted">Upload JPG/PNG room photos and get class prediction with confidence and alternatives.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Track Data Health</h3>
+                    <p class="text-muted">See class distribution so you can spot imbalance issues before retraining.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Retrain Easily</h3>
+                    <p class="text-muted">Update your model as new images are added into dataset folders.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card fade-in-up delay-1">
+            <div class="section-heading">
+                <div>
+                    <h2>How RoomVision Works</h2>
+                    <p class="text-muted">A quick view of the end-to-end experience from raw image to model output.</p>
+                </div>
+                <a href="{{ url_for('about') }}" class="text-link">See full explanation</a>
+            </div>
+            <div class="timeline-grid">
+                <article class="timeline-card">
+                    <span class="timeline-step">01</span>
+                    <h3>Upload</h3>
+                    <p class="text-muted">Users submit a room image through the prediction interface.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">02</span>
+                    <h3>Process</h3>
+                    <p class="text-muted">The backend resizes and prepares the image for feature extraction.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">03</span>
+                    <h3>Classify</h3>
+                    <p class="text-muted">The trained model predicts the most likely room class with confidence.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">04</span>
+                    <h3>Review</h3>
+                    <p class="text-muted">The UI returns the top label, score, and alternate matches.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card dataset-panel fade-in-up delay-1">
+            <h2>Current Dataset Snapshot</h2>
+            <div class="dataset-grid">
+                {% for class_name, count in dataset_overview.class_counts.items() %}
+                <div class="data-card">
+                    <span class="data-name">{{ class_name }}</span>
+                    <strong class="data-count">{{ count }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="glass-card fade-in-up delay-1">
+            <div class="section-heading">
+                <div>
+                    <h2>EDA and Monitoring Snapshot</h2>
+                    <p class="text-muted">The project now surfaces basic exploratory analysis and live monitoring from the app itself.</p>
+                </div>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>EDA Summary</h3>
+                    <p class="text-muted">Average per class: {{ eda_summary.average_count }}. Imbalance ratio: {{ eda_summary.imbalance_ratio if eda_summary.imbalance_ratio else 'N/A' }}.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Underrepresented Classes</h3>
+                    <p class="text-muted">
+                        {% if eda_summary.underrepresented_classes %}
+                            {{ eda_summary.underrepresented_classes | join(', ') }}
+                        {% else %}
+                            No major underrepresented class detected.
+                        {% endif %}
+                    </p>
+                </article>
+                <article class="feature-card">
+                    <h3>Monitoring</h3>
+                    <p class="text-muted">Predictions logged: {{ monitoring_summary.total_predictions }}. Average confidence: {{ monitoring_summary.average_confidence if monitoring_summary.average_confidence is not none else 'N/A' }}%.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-card cta-strip fade-in-up">
+            <div>
+                <h2>Ready to test a room image?</h2>
+                <p class="text-muted">Jump into the predictor and see how the classifier responds to your sample image.</p>
+            </div>
+            <a href="{{ url_for('prediction') }}" class="btn-primary btn-inline">Open Prediction Page</a>
+        </section>
+    </div>
+</body>
+</html>

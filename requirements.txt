@@ -1,0 +1,8 @@
+flask
+joblib
+matplotlib
+numpy
+opencv-python
+scikit-image
+scikit-learn
+seaborn
